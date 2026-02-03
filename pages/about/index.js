@@ -117,7 +117,7 @@ const aboutData = [
         location: 'Coimbatore, Tamil Nadu',
         stage: '2021 - 2025',
         details: [
-          'CGPA: 7.77',
+          'CGPA: 7.93',
         ]
       },
       {
@@ -144,11 +144,11 @@ const aboutData = [
         ]
       },
       {
-        stage: 'Quantum Green Technology | Aug 2024 - Oct 2025', 
-        title: 'Data Analyst',
+        stage: 'Quantum Green Technology | Aug 2024 - Oct 2024', 
+        title: 'Python Developer',
         description: [
-          'Built AI/ML models for optimization.',
-          'Assisted IoT integration in environmental systems.'
+          'Contributed to developing Python-based applications for data processing and automation tasks',
+          'Assisted in implementing backend logic using Python to support application.'
         ]
       }
     ]
