@@ -11,13 +11,39 @@ import { fadeIn } from '../../variants';
 import { useState } from 'react';
 // particles
 import ParticlesContainer from '../../components/ParticlesContainer';
+// head
+import Head from 'next/head';
 
 const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    try {
+      const formData = new FormData(e.target);
+      const res = await fetch('/__forms.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString(),
+      });
+      if (!res.ok) throw new Error(`Form submission failed (${res.status})`);
+      setIsSubmitted(true);
+    } catch (err) {
+      setError('Something went wrong. Please try again, or email me directly.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <div className='h-full bg-primary/30 py-32 text-center xl:text-left overflow-y-auto'>
+    <div className='h-full bg-primary/30 py-32 text-center xl:text-left overflow-y-auto overflow-x-hidden scrollbar-none'>
+      <Head>
+        <title>Contact | P G Pradheesh</title>
+      </Head>
       <ParticlesContainer />
       <Circles />
       <div className="container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6 overflow-y-auto">
@@ -74,12 +100,19 @@ const Contact = () => {
               </button>
             </div>
           ) : (
-            <form 
-              action="https://formspree.io/f/xvgqznlo"  
+            <form
+              name="contact"
               method="POST"
               className='flex-1 flex flex-col gap-y-6 w-full max-w-[500px] mx-auto'
-              onSubmit={() => setIsLoading(true)}
+              onSubmit={handleSubmit}
             >
+              <input type="hidden" name="form-name" value="contact" />
+              <input type="text" name="bot-field" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+              {error && (
+                <div className="bg-red-500/10 text-red-400 text-sm p-3 rounded-lg text-left">
+                  {error}
+                </div>
+              )}
               <div className='flex gap-x-6 w-full'>
                 <input 
                   type="text" 

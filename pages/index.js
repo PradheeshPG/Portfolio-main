@@ -4,6 +4,7 @@ import { fadeIn } from '../variants';
 import ParticlesContainer from '../components/ParticlesContainer';
 import ProjectsBtn from '../components/ProjectsBtn';
 import Avatar from '../components/Avatar';
+import { HiDownload } from 'react-icons/hi';
 
 const Home = () => {
   const roles = ['a FullStack Developer', 'a Data Analyst', 'an AI Engineer', 'a Python Developer'];
@@ -71,7 +72,18 @@ const Home = () => {
               </motion.span>
             </span>
           </motion.h1>
-          
+
+          {/* current role */}
+          <motion.div
+            variants={fadeIn('down', 0.25)}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            className='mb-6 text-sm sm:text-base uppercase tracking-[2px] text-white/70'
+          >
+            Junior AI Developer <span className='text-accent'>@ Greenbotz</span>
+          </motion.div>
+
           {/* subtitle */}
           <motion.p 
             variants={fadeIn('down',0.3)} 
@@ -84,25 +96,39 @@ const Home = () => {
           </motion.p>
           
           {/* buttons container - mobile */}
-          <div className="flex flex-col items-center xl:hidden gap-y-4 mb-8">
+          <div className="flex flex-col items-center xl:hidden gap-y-4 mb-8 relative z-10">
             <ProjectsBtn />
+            <a
+              href="/resume.pdf"
+              download
+              className='btn rounded-full border border-white/50 px-8 flex items-center justify-center gap-x-2 hover:border-accent hover:text-accent transition-all duration-300'
+            >
+              Download CV <HiDownload className='text-xl' />
+            </a>
           </div>
-          
+
           {/* buttons container - desktop */}
-          <motion.div 
-            variants={fadeIn('down',0.4)} 
-            initial="hidden" 
-            animate="show" 
+          <motion.div
+            variants={fadeIn('down',0.4)}
+            initial="hidden"
+            animate="show"
             exit="hidden"
-            className='hidden xl:flex'
+            className='hidden xl:flex items-center gap-x-8 relative z-10'
           >
             <ProjectsBtn />
+            <a
+              href="/resume.pdf"
+              download
+              className='btn rounded-full border border-white/50 px-8 flex items-center justify-center gap-x-2 hover:border-accent hover:text-accent transition-all duration-300'
+            >
+              Download CV <HiDownload className='text-xl' />
+            </a>
           </motion.div>
         </div>
       </div>
       
       {/* image */}
-      <div className="w-[1200px] h-full absolute right-0 bottom-0">
+      <div className="w-[1200px] h-full absolute right-0 bottom-0 pointer-events-none">
         {/* bg image */}
         <div className='bg-none xl:galaxy xl:bg-cover xl:bg-right xl:bg-no-repeat xl:bg-[left_-100px_top_-150px] w-full h-full absolute mix-blend-color-dodge translate-z-0'>
         </div>
@@ -113,12 +139,10 @@ const Home = () => {
           animate="show" 
           exit="hidden"
           transition={{duration: 1, ease: 'easeInOut'}}
-          className='w-full h-full max-w-[737px] max-h-[678px] absolute -bottom-32 lg:bottom-0 lg:right-[2%]'
+          className='w-full h-full max-w-[737px] max-h-[678px] absolute -bottom-32 lg:bottom-0 lg:right-[2%] pointer-events-auto'
         >
           <Avatar/>
         </motion.div>
-        {/* particles */}
-      <ParticlesContainer/>
       </div>
     </div>
   );

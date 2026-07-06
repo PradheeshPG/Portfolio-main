@@ -8,6 +8,11 @@ import Image from 'next/image';
 
 const ProjectsSlider = () => {
   const videoRefs = useRef([]);
+  const cardRefs = useRef([]);
+
+  const canHover = () =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   const handleMouseOver = (index) => {
     if (videoRefs.current[index]) {
@@ -20,6 +25,20 @@ const ProjectsSlider = () => {
       videoRefs.current[index].pause();
       videoRefs.current[index].currentTime = 0;
     }
+    const card = cardRefs.current[index];
+    if (card) {
+      card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg)';
+    }
+  };
+
+  const handleTilt = (e, index) => {
+    if (!canHover()) return;
+    const card = cardRefs.current[index];
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
   };
 
   const projectData = [
@@ -29,6 +48,7 @@ const ProjectsSlider = () => {
       video: '/thumb1-.mp4',
       description: 'Real-time license plate recognition system',
       link: 'https://github.com/PradheeshPG/License-Plate-Detection',
+      tags: ['YOLOv11', 'PaddleOCR', 'Python'],
     },
     {
       title: 'Facial Attendance System',
@@ -36,20 +56,23 @@ const ProjectsSlider = () => {
       video: '/thumb2.mp4',
       description: 'Automated attendance marking system',
       link: 'https://github.com/PradheeshPG/Facial-Attendance-monitor',
+      tags: ['OpenCV', 'Python', 'Face Recognition'],
     },
     {
       title: 'Portfolio Website',
       poster: '/thumb3.png',
       video: '/thumb3.webm',
-      description: 'Personal portfolio website',
-      link: '#',
+      description: 'Personal portfolio with animations & particles',
+      link: 'https://github.com/PradheeshPG',
+      tags: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
     },
     {
       title: 'PowerBI Dashboard',
       poster: '/thumb4.jpeg',
       video: '/thumb1.mp4',
-      description: '',
-      link: '#',
+      description: 'Interactive data analytics dashboard with KPIs',
+      link: 'https://github.com/PradheeshPG',
+      tags: ['Power BI', 'DAX', 'Data Visualization'],
     },
   ];
   return (
@@ -78,13 +101,15 @@ const ProjectsSlider = () => {
       >
         {projectData.map((project, index) => (
           <SwiperSlide key={index}>
-            <div 
-              className="relative bg-gray-800 rounded-lg overflow-hidden shadow-sm h-[220px] w-full"
+            <div
+              ref={el => cardRefs.current[index] = el}
+              className="relative bg-gray-800 rounded-lg overflow-hidden shadow-sm w-full flex flex-col transition-transform duration-150 ease-out will-change-transform"
               onMouseEnter={() => handleMouseOver(index)}
               onMouseLeave={() => handleMouseOut(index)}
+              onMouseMove={(e) => handleTilt(e, index)}
             >
-              {/* Image/Video Thumbnail (Fixed Height) */}
-              <div className="relative h-[120px] w-full overflow-hidden group">
+              {/* Image/Video Thumbnail (scales with card width) */}
+              <div className="relative w-full aspect-video overflow-hidden group">
                 {/* Static Image */}
                 <div className="absolute inset-0">
                   <Image
@@ -99,6 +124,7 @@ const ProjectsSlider = () => {
                 <video
                   ref={el => videoRefs.current[index] = el}
                   poster={project.poster}
+                  preload="none"
                   muted
                   loop
                   playsInline
@@ -109,11 +135,25 @@ const ProjectsSlider = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
 
-              {/* Text Content (Remaining Height) */}
-              <div className="p-3 h-[100px] flex flex-col">
+              {/* Text Content */}
+              <div className="p-3 min-h-[96px] flex flex-col flex-1">
                 <h3 className="text-sm font-bold text-white mb-1 line-clamp-1">{project.title}</h3>
                 <p className="text-gray-300 text-xs mb-2 line-clamp-2">{project.description}</p>
-                
+
+                {/* tech tags */}
+                {project.tags && (
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="text-[10px] px-2 py-[1px] rounded-full border border-white/20 text-white/60"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
                 <div className="mt-auto flex justify-between items-center">
                   <span className="text-xs text-gray-400">View Project</span>
                   <a 

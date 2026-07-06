@@ -22,11 +22,13 @@ const ParticlesContainer = () => {
           value: '',
         },
       },
-      fpsLimit: 120,
+      fpsLimit: 60,
+      pauseOnBlur: true,
+      pauseOnOutsideViewport: true,
       interactivity: {
         events: {
           onClick: {
-            enable: false,
+            enable: true,
             mode: 'push',
           },
           onHover: {
@@ -35,9 +37,9 @@ const ParticlesContainer = () => {
           },
           resize: true,
         },
-        nodes: {
+        modes: {
           push: {
-            quantity: 150
+            quantity: 4
           },
           repulse: {
             distance: 120,
@@ -57,7 +59,7 @@ const ParticlesContainer = () => {
           width: 1
         },
         collisions: {
-          enable: true,
+          enable: false,
         },
         move: {
           directions: 'none',
@@ -74,7 +76,8 @@ const ParticlesContainer = () => {
             enable: true,
             area: 800
           },
-          value: 80
+          value: 80,
+          limit: 120
         },
         opacity: {
           value: 0.5,

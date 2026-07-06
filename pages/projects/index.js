@@ -7,12 +7,17 @@ import Circles from '../../components/Circles';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import ParticlesContainer from '../../components/ParticlesContainer';
+// head
+import Head from 'next/head';
 
 const Projects = () => {
   return (
-    <div className='h-full bg-primary/30 py-32 flex items-center'>
+    <div className='h-full bg-primary/30 py-24 xl:py-32 flex overflow-y-auto overflow-x-hidden scrollbar-none'>
+      <Head>
+        <title>Projects | P G Pradheesh</title>
+      </Head>
       <Circles />
-      <div className='container mx-auto'>
+      <div className='container mx-auto px-4 my-auto'>
         <div className='flex flex-col xl:flex-row gap-x-8 items-center'>
           {/* text */}
           <div className='text-center flex xl:w-[30vw] flex-col lg:text-left mb-8 xl:mb-0'>

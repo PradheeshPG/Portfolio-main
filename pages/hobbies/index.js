@@ -8,10 +8,15 @@ import ParticlesContainer from '../../components/ParticlesContainer';
 // framer motion
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
+// head
+import Head from 'next/head';
 
 const Hobbies = () => {
   return (
     <div className='h-full bg-primary/30 py-32 flex items-center'>
+      <Head>
+        <title>Hobbies | P G Pradheesh</title>
+      </Head>
       <Circles />
       <div className='container mx-auto'>
         <div className='flex flex-col xl:flex-row gap-x-8 items-center'>

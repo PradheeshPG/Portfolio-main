@@ -39,6 +39,10 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 // counter
 import CountUp from "react-countup";
+// head
+import Head from 'next/head';
+// link
+import Link from 'next/link';
 // Tooltip component
 const Tooltip = ({ children, text }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -132,24 +136,20 @@ const aboutData = [
     ]
   },
   {
-    title: 'Internships',
+    title: 'Experience',
     icon: <FaBriefcase className="text-accent" />,
     info: [
       {
-        stage: 'Techvolt Software | Oct 2024 - Nov 2024',
-        title: 'Junior FullStack Developer',
-        description: [
-          'Assisted in full-stack development using React.',
-          'Gained experience and team collaboration skills.'
-        ]
+        stage: 'Greenbotz | Jun 2026 - Present',
+        title: 'Junior AI Developer',
       },
       {
-        stage: 'Quantum Green Technology | Aug 2024 - Oct 2024', 
+        stage: 'Techvolt Software | Oct 2024 - Nov 2024 (Intern)',
+        title: 'Junior FullStack Developer',
+      },
+      {
+        stage: 'Quantum Green Technology | Aug 2024 - Oct 2024 (Intern)',
         title: 'Python Developer',
-        description: [
-          'Contributed to developing Python-based applications for data processing and automation tasks',
-          'Assisted in implementing backend logic using Python to support application.'
-        ]
       }
     ]
   },
@@ -181,7 +181,10 @@ const About = () => {
   }, []);
 
   return (
-    <div className='h-full bg-primary/30 py-32 text-center xl:text-left relative overflow-y-auto'>
+    <div className='h-full bg-primary/30 py-32 text-center xl:text-left relative overflow-y-auto overflow-x-hidden scrollbar-none'>
+      <Head>
+        <title>About | P G Pradheesh</title>
+      </Head>
       <div className='absolute top-0 left-0 right-0 bottom-0 z-0'>
         <ParticlesContainer />
       </div>
@@ -224,7 +227,7 @@ const About = () => {
             exit="hidden"
             className='max-w-[500px] mx-auto xl:mx-0 mb-6 xl:mb-12 px-2 xl:px-0 text-center xl:text-left'
           >
-            Fresh graduate with strong foundation in modern web technologies. Eager to apply my skills in real-world projects and continuously expand my knowledge through hands-on experience.
+            Junior AI Developer at Greenbotz, building AI-powered video analytics with computer vision and Vision Language Models. Passionate about turning real-world problems into intelligent, practical solutions.
           </motion.p>
 
           {/* counters */}
@@ -300,7 +303,7 @@ const About = () => {
           </div>
 
           {/* content */}
-          <div className='py-2 xl:py-6 flex flex-col gap-y-2 xl:gap-y-4 items-start overflow-y-auto h-[400px] px-2'>
+          <div className='py-2 xl:py-6 flex flex-col gap-y-2 xl:gap-y-4 items-start overflow-y-auto h-[400px] px-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent'>
             {aboutData[index].info.map((item, itemIndex) => {
               return (
                 <div
@@ -333,6 +336,19 @@ const About = () => {
                       ))}
                     </ul>
                   </div>
+                  {/* tech tags */}
+                  {item.tech && (
+                    <div className='flex flex-wrap gap-2 mt-3'>
+                      {item.tech.map((t, i) => (
+                        <span
+                          key={i}
+                          className='text-[11px] px-2 py-[2px] rounded-full border border-white/20 text-white/70'
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   {/* icons */}
                 {item.icons && (
                 <div className='flex flex-wrap gap-4 mt-4 justify-start w-full items-end'>
@@ -350,6 +366,15 @@ const About = () => {
                 </div>
               );
             })}
+            {/* link to full experience page */}
+            {aboutData[index].title === 'Experience' && (
+              <Link
+                href='/experience'
+                className='text-sm text-accent hover:underline mt-2'
+              >
+                View full experience &rarr;
+              </Link>
+            )}
           </div>
         </motion.div>
       </div>
