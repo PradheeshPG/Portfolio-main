@@ -190,16 +190,19 @@ const About = () => {
       </div>
       <Circles />
 
-      {/* avatar img */}
-      <motion.div
-        variants={fadeIn('right', 0.2)}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        className='hidden xl:flex absolute bottom-0 -left-[370px]'
-      >
-        <Avatar />
-      </motion.div>
+      {/* avatar img — clipped layer so the avatar (and its off-screen hover
+          bitmoji) can never extend the page's scrollable area */}
+      <div className='hidden xl:block absolute inset-0 overflow-hidden pointer-events-none'>
+        <motion.div
+          variants={fadeIn('right', 0.2)}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+          className='flex absolute bottom-0 -left-[370px] pointer-events-auto'
+        >
+          <Avatar />
+        </motion.div>
+      </div>
 
       <div className='container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6 relative z-10 px-4'>
         {/* text */}
