@@ -1,5 +1,6 @@
 // next
 import Head from 'next/head';
+import Image from 'next/image';
 import { useState } from 'react';
 // components
 import Circles from '../../components/Circles';
@@ -18,10 +19,11 @@ const LogoCircle = ({ logo, initial, icon }) => {
   return (
     <div className='w-12 h-12 shrink-0 rounded-full bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden'>
       {logo && !imgFailed ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <Image
           src={logo}
           alt=''
+          width={48}
+          height={48}
           className='w-full h-full object-contain p-1'
           onError={() => setImgFailed(true)}
         />

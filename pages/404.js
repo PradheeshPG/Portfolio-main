@@ -42,7 +42,7 @@ const NotFound = () => {
           exit='hidden'
           className='max-w-[400px] mx-auto mb-10'
         >
-          The page you're looking for doesn't exist or has been moved.
+          The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </motion.p>
         <motion.div
           variants={fadeIn('up', 0.5)}

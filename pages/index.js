@@ -6,8 +6,9 @@ import ProjectsBtn from '../components/ProjectsBtn';
 import Avatar from '../components/Avatar';
 import { HiDownload } from 'react-icons/hi';
 
+const roles = ['a FullStack Developer', 'a Data Analyst', 'an AI Engineer', 'a Python Developer'];
+
 const Home = () => {
-  const roles = ['a FullStack Developer', 'a Data Analyst', 'an AI Engineer', 'a Python Developer'];
   const [displayText, setDisplayText] = useState('');
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
@@ -61,7 +62,7 @@ const Home = () => {
             exit="hidden"
             className='h1'
           >
-            P G Pradheesh <br/> I'm {' '}
+            P G Pradheesh <br/> I&apos;m {' '}
             <span className="text-accent">
               {displayText}
               <motion.span
